@@ -8,7 +8,7 @@ import SignUp from './screens/SignUp'
 const AppStackNav = createStackNavigator({
 
   StartUp:{
-    screen: StartUp
+    screen: StartUp 
   },
   LogIn:{
     screen: LogIn
