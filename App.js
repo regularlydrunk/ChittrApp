@@ -5,7 +5,7 @@ import StartUp from './screens/Startup'
 import LogIn from './screens/LogIn'
 import SignUp from './screens/SignUp'
 
-const AppStackNav = createStackNavigator ({
+const AppStackNav = createStackNavigator({
 
   StartUp:{
     screen: StartUp
@@ -16,19 +16,17 @@ const AppStackNav = createStackNavigator ({
   SignUp:{
     screen: SignUp
   },
-
+  },
+  
   { 
-    initialRouteParams:StartUp,
+   initialRouteParams: StartUp,
     headerMode: 'none',
-  }
-
-});
-
+  });
 
 //Allows navigation around the app
 const AppContainer = createAppContainer(AppStackNav);
 
-//Tells React to Open the App Contain
+//Tells React to Open the App Container
 export default AppContainer;
 
 
