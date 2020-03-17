@@ -1,10 +1,13 @@
 import React, { Component } from 'react'; 
-import { FlatList, ActivityIndicator, Text, View  } from 'react-native'; 
+import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, TextInput, TouchableOpacity  } from 'react-native'; 
 
-
+class Signup extends Component {
 constructor(props)
 {   
-    super(props);     
+    super(props);   
+    
+    //Binds the createAccount function so it can access the states in the constructor
+    this.createAccount = this.createAccount.bind(this);
     this.state ={ 
         //For Testing
         given_name: 'caitlin',
@@ -16,24 +19,26 @@ constructor(props)
 
 createAccount()
 {
-fetch('10.0.2.2:3333/tables/chittr_user',
+fetch('http://10.0.2.2:3333/api/v0.0.5/user',
     {
         method: 'POST',
         headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-        given_name: this.state.give_name,
+        given_name: this.state.given_name,
         family_name: this.state.family_name,
         email: this.state.email,
         password: this.state.password
      })
   })
-
-  .then((response) => response.json())
-  .then((data) => {
-    console.log('Your account has been created!', data);
-  })
+  .then((response) => {
+    if (response.status == 201){
+      Alert.alert("Account Created");
+    } else
+    Alert.alert("An error occured, please try again");
+  }) 
   .catch((error) => {
     console.error('An error has occured.', error);
   });
@@ -51,8 +56,6 @@ render()
 
       <TextInput style={styles.ListText}
 
-        underlineColorAndroid="transparent"
-
         placeholder="Enter your given name here"
 
         autoCapitalize="none"
@@ -64,8 +67,6 @@ render()
 
 
       <TextInput style={styles.ListText}
-
-        underlineColorAndroid="transparent"
 
         placeholder="Enter your family name here"
 
@@ -79,8 +80,6 @@ render()
 
       <TextInput style={styles.ListText}
 
-        underlineColorAndroid="transparent"
-
         placeholder="Enter your email here"
 
         autoCapitalize="none"
@@ -92,8 +91,6 @@ render()
 
 
       <TextInput style={styles.ListText}
-
-        underlineColorAndroid="transparent"
 
         placeholder="Enter password here"
 
@@ -112,11 +109,8 @@ render()
         style={styles.Button}
 
         onPress=
-
         {
-
           () => this.createAccount()
-
         }>
 
         <Text style={styles.ButtonText}> Create account </Text>
@@ -131,7 +125,7 @@ render()
 
         {
 
-          () => this.props.navigation.navigate('LoginPage')
+          () => this.props.navigation.navigate('Login')
 
         }>
 
@@ -144,7 +138,7 @@ render()
   );
 
 }
-
+}
 
 const styles = StyleSheet.create({
 
@@ -229,3 +223,6 @@ const styles = StyleSheet.create({
   },
 
 });
+
+export default Signup;
+
