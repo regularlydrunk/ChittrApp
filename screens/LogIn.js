@@ -1,5 +1,7 @@
 import React, { Component } from 'react'; 
-import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, AsyncStorage, TextInput, TouchableOpacity  } from 'react-native'; 
+import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, TextInput, TouchableOpacity  } from 'react-native'; 
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 class Login extends Component {
 constructor(props)
@@ -8,10 +10,28 @@ constructor(props)
     
     //Binds the ProcessLogin function so it can access the states in the constructor
     this.ProcessLogin = this.ProcessLogin.bind(this);
+    this.StashAuth = this.StashAuth.bind(this);
     this.state = {
         email:'16051576@stu.mmu.ac.uk',
         password: 'password', 
+        auth: '',
  };
+}
+
+async StashAuth(){ 
+try{
+  let auth = this.state.auth;
+
+  console.log("Storing: " + auth)
+
+  await AsyncStorage.setItem('Authkey', auth.toString());
+
+
+  console.log(this.state);
+
+}catch(e){
+  console.log("Error in Storage " + e)
+}
 }
 
 ProcessLogin()
@@ -20,7 +40,7 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/login',
     {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json',
     },
         body: JSON.stringify(
@@ -31,27 +51,22 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/login',
 
     })
 
-    .then((response) => response.json())
-    .then((reponseJson) => 
-        {
-        try { 
-            Alert.alert("Logged in");
-            console.log("Our authkey is: "+ responseJson.token);
-            AsyncStorage.setItem('Authkey', responseJson.token);
-            }
-         
-        catch(error)
-            {
-            console.error('An error has occured.', error);
-            }
-        
-            
-        })
-    }
+    .then((response) => { 
+      return response.json();
+    })
+    .then((responseJson) => 
+    {
 
-    catch (ASyncError) { 
-    console.log(ASyncError);
-    }
+      
+      this.setState({
+        auth: responseJson.token
+      });
+
+      console.log(this.state);
+      this.StashAuth();
+        
+    })
+  };
 
 
 render()

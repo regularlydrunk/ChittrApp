@@ -12,11 +12,13 @@ class Startup extends Component {
     render(){
         return(
             <View>
-                <Button title="Login" onPress={() => this.props.navigation.navigate('LogIn')}></Button>
-                <Button title="Register" onPress={() => this.props.navigation.navigate('SignUp')}></Button>
+                
+                <Button title="Press to enter" onPress={() => this.props.navigation.navigate('LogIn')}></Button>
             </View>
         );
     }
 }
 
 export default Startup;
+
+//TODO: Make pretty

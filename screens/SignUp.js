@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, TextInput, TouchableOpacity  } from 'react-native'; 
 
+
 class Signup extends Component {
 constructor(props)
 {   
@@ -36,6 +37,7 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/user',
   .then((response) => {
     if (response.status == 201){
       Alert.alert("Account Created");
+      this.props.navigation.navigate('LogIn')
     } else
     Alert.alert("An error occured, please try again");
   }) 
@@ -111,25 +113,11 @@ render()
         onPress=
         {
           () => this.createAccount()
+         
+          
         }>
 
         <Text style={styles.ButtonText}> Create account </Text>
-
-      </TouchableOpacity>
-
-      <TouchableOpacity
-
-        style={styles.Button}
-
-        onPress=
-
-        {
-
-          () => this.props.navigation.navigate('Login')
-
-        }>
-
-        <Text style={styles.ButtonText}> Go to log in page </Text>
 
       </TouchableOpacity>
 
