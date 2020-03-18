@@ -102,22 +102,21 @@ render()
         <Text style={styles.ButtonText}> Login </Text>
 
       </TouchableOpacity>
-
       <TouchableOpacity
 
-        style={styles.Button}
+style={styles.Button}
 
-        onPress=
+onPress=
 
-        {
+{
 
-          () => this.props.navigation.navigate('SignUp')
+  () => this.props.navigation.navigate('SignUp')
 
-        }>
+}>
 
-        <Text style={styles.ButtonText}> Go to Register page </Text>
+<Text style={styles.ButtonText}> Go to Register page </Text>
 
-      </TouchableOpacity>
+</TouchableOpacity>
 
     </View>
 
