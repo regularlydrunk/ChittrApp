@@ -16,7 +16,7 @@ constructor(props)
 
 PostStatus()
 {
-fetch('http://10.0.2.2:3333/api/v0.0.5/user',
+fetch('http://10.0.2.2:3333/api/v0.0.5/chits',
     {
         method: 'POST',
         headers: {
@@ -26,14 +26,14 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/user',
     body: JSON.stringify({
         given_name: this.state.given_name,
         family_name: this.state.family_name,
-        email: this.state.email,
-        password: this.state.password
+        chit_content: this.state.chit_content,
+    
      })
   })
   .then((response) => {
     if (response.status == 201){
-      Alert.alert("Account Created");
-      this.props.navigation.navigate('LogIn')
+      Alert.alert("Chit Posted!");
+      this.props.navigation.navigate('Feed')
     } else
     Alert.alert("An error occured, please try again");
   }) 
@@ -50,57 +50,15 @@ render()
 
     <View style={styles.container}>
 
-      <Text style={styles.TitleText}> New user? Create a new account  </Text>
-
       <TextInput style={styles.ListText}
 
-        placeholder="Enter your given name here"
+        placeholder="What's on your mind?"
 
         autoCapitalize="none"
 
-        onChangeText={text => this.setState({ given_name: text })}
+        onChangeText={text => this.setState({ chit_content: text })}
 
       />
-
-
-
-      <TextInput style={styles.ListText}
-
-        placeholder="Enter your family name here"
-
-        autoCapitalize="none"
-
-        onChangeText={text => this.setState({ family_name: text })}
-
-      />
-
-
-
-      <TextInput style={styles.ListText}
-
-        placeholder="Enter your email here"
-
-        autoCapitalize="none"
-
-        onChangeText={text => this.setState({ email: text })}
-
-      />
-
-
-
-      <TextInput style={styles.ListText}
-
-        placeholder="Enter password here"
-
-        autoCapitalize="none"
-
-        secureTextEntry={true}
-
-        onChangeText={text => this.setState({ password: text })}
-
-      />
-
-
 
       <TouchableOpacity
 
@@ -108,12 +66,12 @@ render()
 
         onPress=
         {
-          () => this.createAccount()
+          () => this.PostStatus()
          
           
         }>
 
-        <Text style={styles.ButtonText}> Create account </Text>
+        <Text style={styles.ButtonText}> Post </Text>
 
       </TouchableOpacity>
 

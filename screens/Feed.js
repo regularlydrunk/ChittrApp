@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         
       },
       container3: {
-        marginTop: '300',
+        marginTop: '150%',
         flexDirection: 'row',
     
       },
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 15,
         height: 50,
-        width: 150
+        width: 10
       },
 
 });

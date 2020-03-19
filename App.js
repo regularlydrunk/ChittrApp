@@ -6,6 +6,7 @@ import LogIn from './screens/LogIn'
 import SignUp from './screens/SignUp'
 import LandingPage from './screens/LandingPage'
 import Feed from './screens/Feed'
+//import PostChit from './screens/PostChit'
 //import EditAccount from './screens/EditAccount'
 
 const AppStackNav = createStackNavigator({
@@ -25,6 +26,7 @@ const AppStackNav = createStackNavigator({
   Feed:{
     screen: Feed
   },
+ 
 
 
   /*EditAccount:{
