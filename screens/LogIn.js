@@ -56,17 +56,21 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/login',
     })
     .then((responseJson) => 
     {
-
-      
       this.setState({
         auth: responseJson.token
       });
 
       console.log(this.state);
       this.StashAuth();
+      this.props.navigation.navigate('LandingPage');
         
-    })
-  };
+    }).catch((error) => {
+      console.log(error);
+      Alert.alert("Email or password is correct. Please try again.");
+    });
+
+    
+  }
 
 
 render()
@@ -85,7 +89,7 @@ render()
 
         autoCapitalize="none"
 
-        onChangeText={text => this.setState({ email: text })}
+        onChangeText={(email) => this.setState({ email: email })}
 
       />
 
@@ -99,7 +103,7 @@ render()
 
         secureTextEntry={true}
 
-        onChangeText={text => this.setState({ password: text })}
+        onChangeText={(password) => this.setState({ password: password })}
 
       />
 
@@ -117,21 +121,19 @@ render()
         <Text style={styles.ButtonText}> Login </Text>
 
       </TouchableOpacity>
+
       <TouchableOpacity
 
-style={styles.Button}
+      style={styles.Button}
 
-onPress=
+        onPress=
+        {
+          () => this.props.navigation.navigate('SignUp')
+        }>
 
-{
+        <Text style={styles.ButtonText}> Go to Register page </Text>
 
-  () => this.props.navigation.navigate('SignUp')
-
-}>
-
-<Text style={styles.ButtonText}> Go to Register page </Text>
-
-</TouchableOpacity>
+      </TouchableOpacity>
 
     </View>
 

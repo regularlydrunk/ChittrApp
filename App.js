@@ -4,6 +4,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 import StartUp from './screens/Startup'
 import LogIn from './screens/LogIn'
 import SignUp from './screens/SignUp'
+import LandingPage from './screens/LandingPage'
+//import Feed from './screens/Feed'
+//import EditAccount from './screens/EditAccount'
 
 const AppStackNav = createStackNavigator({
 
@@ -16,6 +19,18 @@ const AppStackNav = createStackNavigator({
   SignUp:{
     screen: SignUp
   },
+  LandingPage:{
+    screen: LandingPage
+  },
+/*  Feed:{
+    screen: Feed
+  },
+*/
+
+  /*EditAccount:{
+    screen: EditAccount
+  },
+*/
   },
   
   { 
