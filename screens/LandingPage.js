@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, TextInput, TouchableOpacity  } from 'react-native'; 
+import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, TextInput, TouchableOpacity, Image} from 'react-native'; 
 import AsyncStorage from '@react-native-community/async-storage';
 
 class LandingPage extends Component {
@@ -15,6 +15,10 @@ class LandingPage extends Component {
     render(){
         return(
             <View style={styles.container}>
+                <Image
+                    style={styles.stretch}
+                    source={{uri : 'assests:/images/logo.png'}}
+                />
                 <TouchableOpacity
                     style={styles.Button}
                     onPress=
@@ -42,6 +46,16 @@ class LandingPage extends Component {
                     }>
 
                     <Text style={styles.ButtonText}> Edit Account </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.Button}
+                    onPress=
+                    {
+                        ()=>this.props.navigation.navigate('Profile')
+                    }>
+
+                    <Text style={styles.ButtonText}> View Profile </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity

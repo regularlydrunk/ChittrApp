@@ -24,8 +24,7 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/chits',
             'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-        given_name: this.state.given_name,
-        family_name: this.state.family_name,
+        
         chit_content: this.state.chit_content,
     
      })

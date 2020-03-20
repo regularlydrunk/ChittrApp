@@ -11,21 +11,26 @@ constructor(props)
     //Binds the ProcessLogin function so it can access the states in the constructor
     this.ProcessLogin = this.ProcessLogin.bind(this);
     this.StashAuth = this.StashAuth.bind(this);
+ 
+
     this.state = {
         email:'16051576@stu.mmu.ac.uk',
         password: 'password', 
         auth: '',
+        id:'',
  };
 }
 
 async StashAuth(){ 
 try{
   let auth = this.state.auth;
+  let id = this.state.id
+  console.log("Storing Auth: " + auth + "Storing id: " + id)
+  var authkey = await AsyncStorage.setItem('Authkey', auth.toString());
+  var userid = await AsyncStorage.setItem('ID', id.toString());
 
-  console.log("Storing: " + auth)
-
-  await AsyncStorage.setItem('Authkey', auth.toString());
-
+  this.setState({auth:authkey,id:userid})
+  this.setState()
 
   console.log(this.state);
 
@@ -57,7 +62,8 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/login',
     .then((responseJson) => 
     {
       this.setState({
-        auth: responseJson.token
+        auth: responseJson.token,
+        id: responseJson.id
       });
 
       console.log(this.state);

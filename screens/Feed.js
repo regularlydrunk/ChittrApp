@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 15,
         height: 50,
-        width: 10
+        width: 100
       },
 
 });
