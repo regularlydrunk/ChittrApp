@@ -1,143 +1,137 @@
-import React, { Component } from 'react';
-import { NavigationEvents } from 'react-navigation';
-import { View, FlatList, ActivityIndicator, Image, Text } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { getChits } from '../server';
-import { headerStyles } from '../styles/Header.style';
-import topBar from './topBar';
-import { globalStyles } from '../styles/Global.style';
-import { StyleSheet } from 'react-native';
+import React,{ Component } from 'react';
+import { FlatList, ActivityIndicator, Text, View,StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-
-
-class feed extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: 'News Feed',
-      headerTintColor: "#fff",
-      headerStyle: headerStyles.headerBar,
-      headerRight: topBar(true, navigation),
-    };
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      userData: '',
-      profileImageUri: '',
-    };
-  }
-
-  async componentDidMount() {
+class ChitScreen extends Component{
+	//Disabled header
+	static navigationOption = {
+		header: null
+	};
+	//Constructor for props
+	constructor(props){
+	super(props);
+	//Variables
+	this.state={
+		isFetching:false,
+		chitListData:[] //Empty List Data
+		}
+	}
+	//Mounts chidata
+	componentDidMount(){
     this.getChitData();
+  
   }
-  onFocus(){
-    this.getChitData();
+  
+	//Refreshes page, runs chitdata get statement
+	onRefresh(){
+		this.setState({ isFetching: true }, function() { this.getChitData() });
+	}
+	//Get request chit data
+	getChitData(){
+		//Fetches chits data from link
+		return fetch('http://10.0.2.2:3333/api/v0.0.5/chits')
+		.then((response) => response.json())
+		.then((responseJson) => {
+			this.setState({
+				isFetching:false,
+				chitListData: responseJson, //Sets chitlistdata to json repsonse data from chit data
+			});
+
+		})
+		.catch((error)=>{
+			console.log(error); //Logs error
+		});
   }
+  
+ 
 
-  getChitData = async () => {
-    var responseJson = await getChits();
-    this.setState({
-      isLoading: false,
-      chitData: responseJson,
-    });
-  };
+	render(){
+		return(
+		<View style={styles.container}>
+		<Text style={styles.header}> Chits </Text>
+		<FlatList styles={styles.container}
+		onRefresh={() => this.onRefresh()}
+		refreshing={this.state.isFetching}
+		data={this.state.chitListData}
+    renderItem={({ item })=> <Text style={styles.FlatList}>{item.chit_content} {"\n"}{"\n"} Posted by: {item.user.given_name}</Text>}
+    
+		keyExtractor={({ chit_id },index) => chit_id}
+		/>
+<TouchableOpacity
 
-  render() {
-    if (this.state.isLoading) {
-      return (
-        <View>
-          <ActivityIndicator />
-        </View>
-      );
-    }
+style={styles.Button}
 
-    return (
-      <KeyboardAwareScrollView
-        style={globalStyles.bgContainer}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={globalStyles.container}
-        scrollEnabled={false}>
-        <NavigationEvents onWillFocus={() => this.onFocus()} />
-        <View style={globalStyles.container}>
-          <FlatList
-            style={styles.list}
-            data={this.state.chitData}
-            renderItem={({ item }) => {
-              return (
+  onPress=
+  {
+    () => this.props.navigation.navigate('PostChit')
+  }>
 
-                <View style={styles.chit}>
-                  <View style={styles.chit_photo_wrapper}>
-                    <Image
-                      source={{
-                        uri:
-                          `http://10.0.2.2:3333/api/v0.0.5/user/${item.user.user_id}/photo?` +
-                          Date.now(),
-                      }}
-                      style={styles.chit_user_photo}
-                    />
-                  </View>
-                  <View style={styles.chit_content}>
-                    <Text style={styles.user}>
-                      {' '}
-                      {item.usergiven_name} {item.user.family_name}
-                    </Text>
-                    <Text style={styles.chitText}> {item.chit_content}</Text>
-                  </View>
-                </View>
-              )
-            }}
+  <Text style={styles.ButtonText}> Post Status </Text>
 
-            keyExtractor={item => item.chit_id}
-          />
-        </View>
-      </KeyboardAwareScrollView>
-    );
-  }
+</TouchableOpacity>
+
+		</View>
+		);
+	}
 }
-export default feed;
+export default ChitScreen
 
 const styles = StyleSheet.create({
-  list: { width: '100%', flex: 1, marginTop: 40 },
-  bottom: {
-    height: '20%',
-    width: '100%',
-    justifyContent: 'flex-end',
-    marginBottom: 15,
+	container: {
+		flex: 2,
+    backgroundColor: '#E4FDE1'
+	},
+	FlatList:{
+		marginHorizontal: 10,
+    height: 60,
+    flex:1,
+		color: 'white',
+    backgroundColor: '#114B5F',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    elevation: 3,
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+    marginBottom: 12
+	},
+	header: {
+		fontSize: 24,
+		color: '#F45B69',
+		textAlign: 'center',
+		paddingBottom: 10,
+		marginBottom: 5,
+		borderBottomColor: '#AFEEEE',
+		borderBottomWidth: 1,
+		fontFamily: "Hatten",
   },
-  chit: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: '#6D939E',
-    marginVertical: 5,
-    flexDirection: 'row',
+  Button: {
+
+    backgroundColor: '#114B5F',
+
+    padding: 5,
+
+    borderRadius: 15,
+
+    alignItems: 'center',
+
+    margin: 15,
+
+    height: 50,
+
   },
-  chit_photo_wrapper: {
-    alignSelf: 'center',
-  },
-  chit_user_photo: {
-    margin: 20,
-    width: 100,
-    height: 100,
-  },
-  chit_content: {
-    flex: 1,
-    marginTop: 10,
-    marginRight: 10,
-    flexDirection: 'column',
-  },
-  user: {
-    alignSelf: 'flex-start',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: themeColours.darkBlue,
-    textTransform: 'capitalize',
-  },
-  chitText: {
-    flex: 1,
-    margin: 0,
-    width: '80%',
-    textTransform: 'capitalize',
-  },
-});
+  
+  ButtonText: {
+
+    color: 'white',
+
+    fontSize: 28,
+
+    fontWeight: 'bold'
+
+  }
+  
+  
+})

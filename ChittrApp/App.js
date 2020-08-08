@@ -7,8 +7,11 @@ import SignUp from './screens/SignUp'
 import LandingPage from './screens/LandingPage'
 import Feed from './screens/Feed'
 import Profile from './screens/Profile'
-//import PostChit from './screens/PostChit'
-//import EditAccount from './screens/EditAccount'
+import PostChit from './screens/PostChit'
+import EditAccount from './screens/EditAccount'
+
+
+
 
 const AppStackNav = createStackNavigator({
 
@@ -30,7 +33,9 @@ const AppStackNav = createStackNavigator({
   Profile:{
     screen: Profile
   },
-
+PostChit:{
+    screen: PostChit
+  },
 
   /*EditAccount:{
     screen: EditAccount

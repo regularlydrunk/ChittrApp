@@ -1,32 +1,65 @@
 import React, { Component } from 'react'; 
 import { FlatList, ActivityIndicator, Text, View, Alert, StyleSheet, TextInput, TouchableOpacity  } from 'react-native'; 
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 class PostChit extends Component {
 constructor(props)
 {   
-    super(props);   
-    
-    //Binds the createAccount function so it can access the states in the constructor
-    this.createAccount = this.createAccount.bind(this);
-    this.state ={ 
-        
- };
+    super(props);    
+
+    this.state = {
+      time: '',
+      auth: '',
+      
+};
 }
+
+
+componentDidMount(){
+  this.getCredentials();
+
+  console.log(this.state.auth);
+  console.log("1 " + this.state.auth);
+}
+
+
+async getCredentials(){
+  try{
+    var getAuthKey = await AsyncStorage.getItem('authkey');
+
+    console.log(getAuthKey);
+    console.log("2 " + this.state.auth);
+
+    this.setState({ 
+      auth: getAuthKey
+   });
+  }
+  catch(error){
+    console.log("Error with Async: "+ error);
+    Alert.alert("Issue getting auth data");
+  }
+}
+
+
 
 PostStatus()
 {
+  var date = Date.now();
+  console.log("3 " + this.state.auth);
 fetch('http://10.0.2.2:3333/api/v0.0.5/chits',
     {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'X-Authorization': this.state.auth,
+
     },
     body: JSON.stringify({
         
         chit_content: this.state.chit_content,
-    
+        timestamp: date,
      })
   })
   .then((response) => {

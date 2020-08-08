@@ -77,8 +77,24 @@ export default class Profile extends Component {
         this.GetAuth();
         this.GetID();
         this.getProfile(this.state.id);
+        this.getChitData();
     }
 
+    	getChitData(){
+		//Fetches chits data from link
+		return fetch('http://10.0.2.2:3333/api/v0.0.5/chits')
+		.then((response) => response.json())
+		.then((responseJson) => {
+			this.setState({
+				isFetching:false,
+				chitListData: responseJson, //Sets chitlistdata to json repsonse data from chit data
+			});
+
+		})
+		.catch((error)=>{
+			console.log(error); //Logs error
+		});
+  }
 
   render() {
     return (
@@ -89,14 +105,20 @@ export default class Profile extends Component {
             <View style={styles.bodyContent}>
                 <FlatList
                 data ={this.state.info}
-                renderItem ={({item}) => <Text>{item.user.given_name} {item.user.family_name}</Text>}
+                renderItem ={({item}) => <Text>{item.user.given_name} {item.user.given_name} </Text>}
                 />
               <Text style={styles.info}>UX Designer / Mobile developer</Text>
               <Text style={styles.description}></Text>
               
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Follow</Text>  
-              </TouchableOpacity>              
+              <TouchableOpacity style={styles.Button}
+                onPress={() => this.props.navigation.navigate('Following')}>
+              <Text style={styles.ButtonText}> Following </Text>
+              </TouchableOpacity>      
+            
+              <TouchableOpacity style={styles.Button}
+                onPress={() => this.props.navigation.navigate('Followers')}>
+              <Text style={styles.ButtonText}> Followers </Text>
+              </TouchableOpacity>  
             
             </View>
         </View>
@@ -123,7 +145,7 @@ const styles = StyleSheet.create({
   },
   name:{
     fontSize:22,
-    color:"#FFFFFF",
+    color:"#000000",
     fontWeight:'600',
   },
   body:{
@@ -157,8 +179,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom:20,
-    width:250,
+    width:100,
     borderRadius:30,
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#456990",
   },
 });

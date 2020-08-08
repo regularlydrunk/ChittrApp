@@ -26,11 +26,11 @@ try{
   let auth = this.state.auth;
   let id = this.state.id
   console.log("Storing Auth: " + auth + "Storing id: " + id)
-  var authkey = await AsyncStorage.setItem('Authkey', auth.toString());
+  await AsyncStorage.setItem('authkey', auth.toString());
   var userid = await AsyncStorage.setItem('ID', id.toString());
 
   this.setState({auth:authkey,id:userid})
-  this.setState()
+
 
   console.log(this.state);
 
@@ -41,6 +41,7 @@ try{
 
 ProcessLogin()
 {
+  console.log("get bonked"),
 fetch('http://10.0.2.2:3333/api/v0.0.5/login',
     {
         method: 'POST',

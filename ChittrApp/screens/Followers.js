@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet,FlatList,TouchableWithoutFeedback,TouchableOpacity, ActivityIndicator} from 'react-native';
 import { List, ListItem, Left, Body, Right, Thumbnail} from 'native-base';
 import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
-export default class Following extends Component {
+export default class Followers extends Component {
 
     constructor(props) {
         super(props);
@@ -24,14 +24,14 @@ export default class Following extends Component {
     componentDidMount(){
 
         const { params } = this.props.navigation.state;
-        const following = params ? params.following : null
+        const followers = params ? params.followers : null
 
         this.setState({
-            data:following,
+            data:followers,
             isLoaded:true
         })
 
-        console.log(following);
+        console.log(followers);
 
 
     }
@@ -100,3 +100,11 @@ else{
 }
 }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      
+        backgroundColor: "#fcfc03",
+    },
+    
+});
