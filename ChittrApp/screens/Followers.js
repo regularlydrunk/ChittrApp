@@ -12,7 +12,6 @@ export default class Followers extends Component {
           loading: false,
           isLoaded:false,
           id:0,
-          q:''
           
         };
     

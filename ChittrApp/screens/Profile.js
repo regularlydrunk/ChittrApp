@@ -183,4 +183,29 @@ const styles = StyleSheet.create({
     borderRadius:30,
     backgroundColor: "#456990",
   },
+  Button: {
+
+    backgroundColor: '#114B5F',
+
+    padding: 5,
+
+    borderRadius: 15,
+
+    alignItems: 'center',
+
+    margin: 15,
+
+    height: 50,
+
+  },
+  
+  ButtonText: {
+
+    color: 'white',
+
+    fontSize: 28,
+
+    fontWeight: 'bold'
+
+  }
 });
