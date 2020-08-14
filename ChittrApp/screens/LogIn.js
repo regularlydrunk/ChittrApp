@@ -41,7 +41,6 @@ try{
 
 ProcessLogin()
 {
-  console.log("get bonked"),
 fetch('http://10.0.2.2:3333/api/v0.0.5/login',
     {
         method: 'POST',
@@ -73,7 +72,7 @@ fetch('http://10.0.2.2:3333/api/v0.0.5/login',
         
     }).catch((error) => {
       console.log(error);
-      Alert.alert("Email or password is correct. Please try again.");
+      Alert.alert("Email or password is incorrect. Please try again.");
     });
 
     

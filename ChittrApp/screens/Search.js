@@ -48,7 +48,6 @@ export default class Search extends Component{
 	// Navigate to OtherProfile after saving the id in AsyncStorage
 	moreDetails = id => {
 		this.storeId(id);
-		this.props.navigation.navigate('OtherProfile');
 	} 
 	
 	render(){

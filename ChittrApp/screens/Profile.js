@@ -100,7 +100,7 @@ export default class Profile extends Component {
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <Image style={styles.avatar} source={{uri: 'https://icon-library.com/images/unknown-person-icon/unknown-person-icon-4.jpg'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
                 <FlatList

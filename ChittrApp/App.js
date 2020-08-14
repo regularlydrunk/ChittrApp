@@ -11,6 +11,9 @@ import PostChit from './screens/PostChit'
 import EditAccount from './screens/EditAccount'
 
 
+//import Following from './screens/Following'
+//import Followers from './screens/Followers'
+
 
 
 const AppStackNav = createStackNavigator({
@@ -37,10 +40,26 @@ PostChit:{
     screen: PostChit
   },
 
-  /*EditAccount:{
+  EditAccount:{
     screen: EditAccount
   },
-*/
+  
+ /* Search:{
+    screen: Search
+  },
+
+	Following:{
+    screen: Following
+  },
+  
+  Followers:{
+    screen: Followers
+  },
+  */
+  
+  Map:{
+    screen: Map
+  },
   },
   
   { 

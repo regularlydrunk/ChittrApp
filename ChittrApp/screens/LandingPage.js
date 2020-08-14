@@ -35,7 +35,7 @@ class LandingPage extends Component {
                     {
                         () => this.props.navigation.navigate('PostChit')
                     }>
-                    <Text style={styles.ButtonText}> Create A Post </Text>
+                    <Text style={styles.ButtonText}> Post Status </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
