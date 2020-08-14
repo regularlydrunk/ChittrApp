@@ -12,7 +12,6 @@ export default class Following extends Component {
           loading: false,
           isLoaded:false,
           id:0,
-          q:''
           
         };
     
@@ -40,7 +39,7 @@ export default class Following extends Component {
 
    
 
-    renderSearchResult = ({item,index})=>{
+    recieveSearchResult = ({item,index})=>{
         console.log(item.user_id);
 
         return(
@@ -48,15 +47,13 @@ export default class Following extends Component {
 
 
 
-<ListItem avatar onPress={()=> this.props.navigation.navigate('ExploreFriends',{
+<ListItem avatar onPress={()=> this.props.navigation.navigate('Search',{
               userId:item.user_id
               
             }
           
             )}>
-  <Left>
-    <Thumbnail source={{ uri: 'http://10.0.2.2:3333/api/v0.0.5/user/'+item.user_id+''+'/photo?'+ new Date() }} />
-  </Left>
+
   <Body>
     <Text>{item.given_name}</Text>
         <Text note>{item.family_name}</Text>
@@ -80,8 +77,8 @@ export default class Following extends Component {
 
             <FlatList
               data={this.state.data}
-              renderItem = {this.renderSearchResult}
-              keyExtractor = {(item,index)=>index.toString()}/>
+              renderItem = {this.recieveSearchResult}
+              />
 
 
 
